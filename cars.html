@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoElite | Modern Car Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+        }
+
+        :root {
+            --primary: #0F1A2C;
+            --secondary: #2563EB;
+            --accent: #F3F4F6;
+            --text-dark: #1F2937;
+            --text-light: #FFFFFF;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            color: var(--text-light);
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            color: var(--secondary);
+            margin-right: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--secondary);
+        }
+
+        .phone-number {
+            color: var(--text-light);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .phone-number i {
+            color: var(--secondary);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(15, 26, 44, 0.8), rgba(15, 26, 44, 0.9)), url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-4.0.3') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 0 2rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) auto;
+            gap: 1rem;
+            box-shadow: var(--card-shadow);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .search-box select, .search-box input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .search-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: #6B7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Car Grid */
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .car-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .car-details {
+            padding: 1.5rem;
+        }
+
+        .car-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .car-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .car-specs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: #6B7280;
+        }
+
+        .car-specs span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .car-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            flex: 1;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background: var(--accent);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) auto;
+            gap: 1rem;
+        }
+
+        .filter-bar select, .filter-bar input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .reset-btn {
+            background: #6B7280;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .reset-btn:hover {
+            background: #4B5563;
+        }
+
+        /* Contact Form */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .contact-info {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-method i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            width: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--text-light);
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #D1D5DB;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #9CA3AF;
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-new {
+            background: #10B981;
+            color: white;
+        }
+
+        .badge-used {
+            background: #F59E0B;
+            color: white;
+        }
+
+        .color-swatch {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .favorite-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .image-container {
+            position: relative;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .search-box, .filter-bar {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .car-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .car-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                AutoElite
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="#new-cars">New Cars</a>
+                <a href="#used-cars">Used Cars</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="phone-number">
+                <i class="fas fa-phone"></i>
+                (123) 456-7890
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find Your Perfect Car</h1>
+            <p>Discover the best deals on new and used vehicles with our modern, hassle-free car buying experience</p>
+            <div class="search-box">
+                <select id="make-search">
+                    <option value="">Select Make</option>
+                    <option value="Toyota">Toyota</option>
+                    <option value="Honda">Honda</option>
+                    <option value="Ford">Ford</option>
+                    <option value="BMW">BMW</option>
+                    <option value="Mercedes">Mercedes</option>
+                    <option value="Audi">Audi</option>
+                </select>
+                <select id="model-search">
+                    <option value="">Select Model</option>
+                </select>
+                <select id="price-search">
+                    <option value="">Max Price</option>
+                    <option value="20000">$20,000</option>
+                    <option value="30000">$30,000</option>
+                    <option value="40000">$40,000</option>
+                    <option value="50000">$50,000</option>
+                    <option value="75000">$75,000</option>
+                    <option value="100000">$100,000+</option>
+                </select>
+                <select id="color-search">
+                    <option value="">Select Color</option>
+                    <option value="Black">Black</option>
+                    <option value="White">White</option>
+                    <option value="Gray">Gray</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Red">Red</option>
+                </select>
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Cars Section -->
+    <section class="section" id="new-cars">
+        <div class="section-header">
+            <h2>New Cars</h2>
+            <p>Discover the latest models with the newest features and technology</p>
+        </div>
+        
+        <div class="filter-bar">
+            <select id="new-make-filter">
+                <option value="">All Makes</option>
+                <option value="Toyota">Toyota</option>
+                <option value="Honda">Honda</option>
+                <option value="Ford">Ford</option>
+                <option value="BMW">BMW</option>
+                <option value="Mercedes">Mercedes</option>
+                <option value="Audi">Audi</option>
+            </select>
+            <select id="new-model-filter">
+                <option value="">All Models</option>
+            </select>
+            <select id="new-price-filter">
+                <option value="">Any Price</option>
+                <option value="30000">Under $30,000</option>
+                <option value="40000">Under $40,000</option>
+                <option value="50000">Under $50,000</option>
+                <option value="60000">Under $60,000</option>
+                <option value="100000">$100,000+</option>
+            </select>
+            <select id="new-color-filter">
+                <option value="">Any Color</option>
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+                <option value="Gray">Gray</option>
+                <option value="Silver">Silver</option>
+                <option value="Blue">Blue</option>
+                <option value="Red">Red</option>
+            </select>
+            <button class="reset-btn">Reset</button>
+        </div>
+        
+        <div class="car-grid" id="new-cars-grid">
+            <!-- New cars will be dynamically inserted here -->
+        </div>
+    </section>
+
+    <!-- Used Cars Section -->
+    <section class="section" id="used-cars">
+        <div class="section-header">
+            <h2>Used Cars</h2>
+            <p>Find quality pre-owned vehicles at unbeatable prices</p>
+        </div>
+        
+        <div class="filter-bar">
+            <select id="used-make-filter">
+                <option value="">All Makes</option>
+                <option value="Toyota">Toyota</option>
+                <option value="Honda">Honda</option>
+                <option value="Ford">Ford</option>
+                <option value="BMW">BMW</option>
+                <option value="Mercedes">Mercedes</option>
+                <option value="Audi">Audi</option>
+            </select>
+            <select id="used-model-filter">
+                <option value="">All Models</option>
+            </select>
+            <select id="used-price-filter">
+                <option value="">Any Price</option>
+                <option value="10000">Under $10,000</option>
+                <option value="15000">Under $15,000</option>
+                <option value="20000">Under $20,000</option>
+                <option value="25000">Under $25,000</option>
+                <option value="30000">Under $30,000</option>
+            </select>
+            <select id="used-color-filter">
+                <option value="">Any Color</option>
+                <option value="Black">Black</option>
+                <option value="White">White</option>
+                <option value="Gray">Gray</option>
+                <option value="Silver">Silver</option>
+                <option value="Blue">Blue</option>
+                <option value="Red">Red</option>
+            </select>
+            <button class="reset-btn">Reset</button>
+        </div>
+        
+        <div class="car-grid" id="used-cars-grid">
+            <!-- Used cars will be dynamically inserted here -->
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="section-header">
+            <h2>Contact Us</h2>
+            <p>Get in touch with our team for any inquiries or to schedule a test drive</p>
+        </div>
+        
+        <div class="contact-container">
+            <div class="contact-form">
+                <h3>Send us a Message</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject">
+                            <option value="general">General Inquiry</option>
+                            <option value="test-drive">Schedule Test Drive</option>
+                            <option value="trade-in">Trade-In Valuation</option>
+                            <option value="service">Service Appointment</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <div class="contact-method">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Visit Our Showroom</h4>
+                        <p>123 Automotive Avenue, Detroit, MI 48201</p>
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h4>Call Us</h4>
+                        <p>(123) 456-7890</p>
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <i class="fab fa-whatsapp"></i>
+                    <div>
+                        <h4>WhatsApp</h4>
+                        <p>+1 (123) 456-7890</p>
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4>Business Hours</h4>
+                        <p>Mon-Fri: 9am - 7pm</p>
+                        <p>Sat: 10am - 6pm</p>
+                        <p>Sun: 12pm - 5pm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>AutoElite</h3>
+                <p>The modern way to buy your next car. We offer a wide selection of new and used vehicles with transparent pricing.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#new-cars">New Cars</a></li>
+                    <li><a href="#used-cars">Used Cars</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="#">Financing</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Our Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Car Sales</a></li>
+                    <li><a href="#">Trade-In</a></li>
+                    <li><a href="#">Test Drives</a></li>
+                    <li><a href="#">Financing</a></li>
+                    <li><a href="#">Vehicle Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Automotive Ave, Detroit</li>
+                    <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+                    <li><i class="fas fa-envelope"></i> info@autoelite.com</li>
+                    <li><i class="fas fa-clock"></i> Mon-Fri: 9am-7pm</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 AutoElite. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample car data - 50+ cars
+        const cars = [
+            // New Cars (25)
+            { id: 1, type: 'new', make: 'Toyota', model: 'Camry', year: 2023, price: 28500, color: 'White', image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 2, type: 'new', make: 'Honda', model: 'Civic', year: 2023, price: 24500, color: 'Black', image: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 3, type: 'new', make: 'Ford', model: 'Mustang', year: 2023, price: 42500, color: 'Red', image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 4, type: 'new', make: 'BMW', model: '3 Series', year: 2023, price: 43500, color: 'Blue', image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 5, type: 'new', make: 'Mercedes', model: 'C-Class', year: 2023, price: 45500, color: 'Silver', image: 'https://images.unsplash.com/photo-1617814076660-1f3a3f46c45a?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 6, type: 'new', make: 'Audi', model: 'A4', year: 2023, price: 41500, color: 'Gray', image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 7, type: 'new', make: 'Toyota', model: 'RAV4', year: 2023, price: 32500, color: 'Blue', image: 'https://images.unsplash.com/photo-1566479140034-9d4c10303ebd?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 8, type: 'new', make: 'Honda', model: 'CR-V', year: 2023, price: 31500, color: 'White', image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 9, type: 'new', make: 'Ford', model: 'Explorer', year: 2023, price: 38500, color: 'Black', image: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 10, type: 'new', make: 'BMW', model: 'X5', year: 2023, price: 62500, color: 'White', image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 11, type: 'new', make: 'Mercedes', model: 'GLE', year: 2023, price: 58500, color: 'Gray', image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 12, type: 'new', make: 'Audi', model: 'Q5', year: 2023, price: 45500, color: 'Black', image: 'https://images.unsplash.com/photo-1617814076660-1f3a3f46c45a?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 13, type: 'new', make: 'Toyota', model: 'Corolla', year: 2023, price: 22500, color: 'Red', image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 14, type: 'new', make: 'Honda', model: 'Accord', year: 2023, price: 29500, color: 'Silver', image: 'https://images.unsplash.com/photo-1566479140034-9d4c10303ebd?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 15, type: 'new', make: 'Ford', model: 'F-150', year: 2023, price: 38500, color: 'Blue', image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 16, type: 'new', make: 'BMW', model: '5 Series', year: 2023, price: 56500, color: 'Black', image: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 17, type: 'new', make: 'Mercedes', model: 'E-Class', year: 2023, price: 59500, color: 'White', image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 18, type: 'new', make: 'Audi', model: 'A6', year: 2023, price: 57500, color: 'Gray', image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 19, type: 'new', make: 'Toyota', model: 'Highlander', year: 2023, price: 38500, color: 'Silver', image: 'https://images.unsplash.com/photo-1617814076660-1f3a3f46c45a?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 20, type: 'new', make: 'Honda', model: 'Pilot', year: 2023, price: 39500, color: 'Black', image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 21, type: 'new', make: 'Ford', model: 'Escape', year: 2023, price: 28500, color: 'Red', image: 'https://images.unsplash.com/photo-1566479140034-9d4c10303ebd?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 22, type: 'new', make: 'BMW', model: 'X3', year: 2023, price: 45500, color: 'Blue', image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 23, type: 'new', make: 'Mercedes', model: 'GLC', year: 2023, price: 48500, color: 'White', image: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 24, type: 'new', make: 'Audi', model: 'Q7', year: 2023, price: 59500, color: 'Gray', image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3', mileage: 0 },
+            { id: 25, type: 'new', make: 'Toyota', model: 'Tacoma', year: 2023, price: 28500, color: 'Silver', image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3', mileage: 0 },
+            
+            // Used Cars (25)
+            { id: 26, type: 'used', make: 'Toyota', model: 'Camry', year: 2020, price: 19500, color: 'Silver', image: 'https://images.unsplash.com/photo-1617814076660-1f3a3f46c45a?ixlib=rb-4.0.3', mileage: 28500 },
+            { id: 27, type: 'used', make: 'Honda', model: 'Civic', year: 2019, price: 17500, color: 'Blue', image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3', mileage: 32500 },
+            { id: 28, type: 'used', make: 'Ford', model: 'Mustang', year: 2018, price: 28500, color: 'Red', image: 'https://images.unsplash.com/photo-1566479140034-9d4c10303ebd?ixlib=rb-4.0.3', mileage: 22000 },
+            { id: 29, type: 'used', make: 'BMW', model: '3 Series', year: 2019, price: 29500, color: 'Black', image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3', mileage: 18500 },
+            { id: 30, type: 'used', make: 'Mercedes', model: 'C-Class', year: 2018, price: 27500, color: 'White', image: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3', mileage: 24500 },
+            { id: 31, type: 'used', make: 'Audi', model: 'A4', year: 2019, price: 28500, color: 'Gray', image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3', mileage: 19500 },
+            { id: 32, type: 'used', make: 'Toyota', model: 'RAV4', year: 2020, price: 23500, color: 'White', image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3', mileage: 21500 },
+            { id: 33, type: 'used', make: 'Honda', model: 'CR-V', year: 2019, price: 22500, color: 'Black', image: 'https://images.unsplash.com/photo-1617814076660-1f3a3f46c45a?ixlib=rb-4.0.3', mileage: 27500 },
+            { id: 34, type: 'used', make: 'Ford', model: 'Explorer', year: 2018, price: 24500, color: 'Silver', image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3', mileage: 32500 },
+            { id: 35, type: 'used', make: 'BMW', model: 'X5', year: 2017, price: 32500, color: 'Blue', image: 'https://images.unsplash.com/photo-1566479140034-9d4c10303ebd?ixlib=rb-4.0.3', mileage: 38500 },
+            { id: 36, type: 'used', make: 'Mercedes', model: 'GLE', year: 2018, price: 35500, color: 'Black', image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3', mileage: 29500 },
+            { id: 37, type: 'used', make: 'Audi', model: 'Q5', year: 2019, price: 31500, color: 'White', image: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3', mileage: 22500 },
+            { id: 38, type: 'used', make: 'Toyota', model: 'Corolla', year: 2020, price: 16500, color: 'Red', image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3', mileage: 18500 },
+            { id: 39, type: 'used', make: 'Honda', model: 'Accord', year: 2019, price: 19500, color: 'Gray', image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3', mileage: 24500 },
+            { id: 40, type: 'used', make: 'Ford', model: 'F-150', year: 2018, price: 26500, color: 'Blue', image: 'https://images.unsplash.com/photo-1617814076660-1f3a3f46c45a?ixlib=rb-4.0.3', mileage: 35500 },
+            { id: 41, type: 'used', make: 'BMW', model: '5 Series', year: 2017, price: 28500, color: 'Black', image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3', mileage: 42500 },
+            { id: 42, type: 'used', make: 'Mercedes', model: 'E-Class', year: 2018, price: 32500, color: 'Silver', image: 'https://images.unsplash.com/photo-1566479140034-9d4c10303ebd?ixlib=rb-4.0.3', mileage: 28500 },
+            { id: 43, type: 'used', make: 'Audi', model: 'A6', year: 2019, price: 34500, color: 'White', image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3', mileage: 19500 },
+            { id: 44, type: 'used', make: 'Toyota', model: 'Highlander', year: 2018, price: 27500, color: 'Gray', image: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-4.0.3', mileage: 31500 },
+            { id: 45, type: 'used', make: 'Honda', model: 'Pilot', year: 2019, price: 28500, color: 'Black', image: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-4.0.3', mileage: 22500 },
+            { id: 46, type: 'used', make: 'Ford', model: 'Escape', year: 2020, price: 19500, color: 'Red', image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3', mileage: 18500 },
+            { id: 47, type: 'used', make: 'BMW', model: 'X3', year: 2018, price: 28500, color: 'Blue', image: 'https://images.unsplash.com/photo-1617814076660-1f3a3f46c45a?ixlib=rb-4.0.3', mileage: 27500 },
+            { id: 48, type: 'used', make: 'Mercedes', model: 'GLC', year: 2019, price: 31500, color: 'White', image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?ixlib=rb-4.0.3', mileage: 19500 },
+            { id: 49, type: 'used', make: 'Audi', model: 'Q7', year: 2017, price: 32500, color: 'Silver', image: 'https://images.unsplash.com/photo-1566479140034-9d4c10303ebd?ixlib=rb-4.0.3', mileage: 38500 },
+            { id: 50, type: 'used', make: 'Toyota', model: 'Tacoma', year: 2019, price: 24500, color: 'Black', image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3', mileage: 29500 }
+        ];
+
+        // Function to format price
+        function formatPrice(price) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0
+            }).format(price);
+        }
+
+        // Function to get color class
+        function getColorClass(color) {
+            const colorMap = {
+                'Black': '#000000',
+                'White': '#FFFFFF',
+                'Gray': '#808080',
+                'Silver': '#C0C0C0',
+                'Blue': '#0000FF',
+                'Red': '#FF0000'
+            };
+            return colorMap[color] || '#CCCCCC';
+        }
+
+        // Function to render cars
+        function renderCars(carList, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            carList.forEach(car => {
+                const carCard = document.createElement('div');
+                carCard.className = 'car-card';
+                carCard.innerHTML = `
+                    <div class="image-container">
+                        <img src="${car.image}" alt="${car.make} ${car.model}" class="car-image">
+                        <span class="badge ${car.type === 'new' ? 'badge-new' : 'badge-used'}">${car.type === 'new' ? 'New' : 'Used'}</span>
+                        <button class="favorite-btn" data-id="${car.id}">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="car-details">
+                        <h3 class="car-title">${car.year} ${car.make} ${car.model}</h3>
+                        <div class="car-price">${formatPrice(car.price)}</div>
+                        <div class="car-specs">
+                            <span><i class="fas fa-palette"></i> <span class="color-swatch" style="background-color: ${getColorClass(car.color)}"></span> ${car.color}</span>
+                            ${car.type === 'used' ? `<span><i class="fas fa-tachometer-alt"></i> ${car.mileage.toLocaleString()} mi</span>` : ''}
+                        </div>
+                        <div class="car-actions">
+                            <a href="#" class="btn btn-primary"><i class="fas fa-phone"></i> Call</a>
+                            <a href="#" class="btn btn-outline"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(carCard);
+            });
+        }
+
+        // Function to filter cars
+        function filterCars(type, make, model, price, color) {
+            return cars.filter(car => {
+                if (car.type !== type) return false;
+                if (make && car.make !== make) return false;
+                if (model && car.model !== model) return false;
+                if (price && car.price > parseInt(price)) return false;
+                if (color && car.color !== color) return false;
+                return true;
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render initial car lists
+            const newCars = cars.filter(car => car.type === 'new');
+            const usedCars = cars.filter(car => car.type === 'used');
+            
+            renderCars(newCars, 'new-cars-grid');
+            renderCars(usedCars, 'used-cars-grid');
+            
+            // Set up filter event listeners for new cars
+            document.getElementById('new-make-filter').addEventListener('change', function() {
+                const make = this.value;
+                const model = document.getElementById('new-model-filter').value;
+                const price = document.getElementById('new-price-filter').value;
+                const color = document.getElementById('new-color-filter').value;
+                
+                const filteredCars = filterCars('new', make, model, price, color);
+                renderCars(filteredCars, 'new-cars-grid');
+            });
+            
+            document.getElementById('new-model-filter').addEventListener('change', function() {
+                const make = document.getElementById('new-make-filter').value;
+                const model = this.value;
+                const price = document.getElementById('new-price-filter').value;
+                const color = document.getElementById('new-color-filter').value;
+                
+                const filteredCars = filterCars('new', make, model, price, color);
+                renderCars(filteredCars, 'new-cars-grid');
+            });
+            
+            document.getElementById('new-price-filter').addEventListener('change', function() {
+                const make = document.getElementById('new-make-filter').value;
+                const model = document.getElementById('new-model-filter').value;
+                const price = this.value;
+                const color = document.getElementById('new-color-filter').value;
+                
+                const filteredCars = filterCars('new', make, model, price, color);
+                renderCars(filteredCars, 'new-cars-grid');
+            });
+            
+            document.getElementById('new-color-filter').addEventListener('change', function() {
+                const make = document.getElementById('new-make-filter').value;
+                const model = document.getElementById('new-model-filter').value;
+                const price = document.getElementById('new-price-filter').value;
+                const color = this.value;
+                
+                const filteredCars = filterCars('new', make, model, price, color);
+                renderCars(filteredCars, 'new-cars-grid');
+            });
+            
+            // Set up filter event listeners for used cars
+            document.getElementById('used-make-filter').addEventListener('change', function() {
+                const make = this.value;
+                const model = document.getElementById('used-model-filter').value;
+                const price = document.getElementById('used-price-filter').value;
+                const color = document.getElementById('used-color-filter').value;
+                
+                const filteredCars = filterCars('used', make, model, price, color);
+                renderCars(filteredCars, 'used-cars-grid');
+            });
+            
+            document.getElementById('used-model-filter').addEventListener('change', function() {
+                const make = document.getElementById('used-make-filter').value;
+                const model = this.value;
+                const price = document.getElementById('used-price-filter').value;
+                const color = document.getElementById('used-color-filter').value;
+                
+                const filteredCars = filterCars('used', make, model, price, color);
+                renderCars(filteredCars, 'used-cars-grid');
+            });
+            
+            document.getElementById('used-price-filter').addEventListener('change', function() {
+                const make = document.getElementById('used-make-filter').value;
+                const model = document.getElementById('used-model-filter').value;
+                const price = this.value;
+                const color = document.getElementById('used-color-filter').value;
+                
+                const filteredCars = filterCars('used', make, model, price, color);
+                renderCars(filteredCars, 'used-cars-grid');
+            });
+            
+            document.getElementById('used-color-filter').addEventListener('change', function() {
+                const make = document.getElementById('used-make-filter').value;
+                const model = document.getElementById('used-model-filter').value;
+                const price = document.getElementById('used-price-filter').value;
+                const color = this.value;
+                
+                const filteredCars = filterCars('used', make, model, price, color);
+                renderCars(filteredCars, 'used-cars-grid');
+            });
+            
+            // Reset filters
+            document.querySelectorAll('.reset-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const section = this.closest('.section');
+                    const filters = section.querySelectorAll('select');
+                    filters.forEach(filter => {
+                        filter.value = '';
+                    });
+                    
+                    if (section.id === 'new-cars') {
+                        const newCars = cars.filter(car => car.type === 'new');
+                        renderCars(newCars, 'new-cars-grid');
+                    } else {
+                        const usedCars = cars.filter(car => car.type === 'used');
+                        renderCars(usedCars, 'used-cars-grid');
+                    }
+                });
+            });
+            
+            // Favorite button functionality
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.favorite-btn')) {
+                    const button = e.target.closest('.favorite-btn');
+                    const icon = button.querySelector('i');
+                    
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        icon.style.color = '#EF4444';
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        icon.style.color = '';
+                    }
+                }
+            });
+            
+            // Contact form submission
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                this.reset();
+            });
+        });
+    </script>
+</body>
+</html>
